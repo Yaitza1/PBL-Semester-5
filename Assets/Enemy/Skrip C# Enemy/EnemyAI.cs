@@ -11,6 +11,8 @@ public class EnemyAI : MonoBehaviour
 
     // Attacking
     public float timeBetweenAttacks;
+    public AudioClip AttackSound;
+    public AudioSource ZombieAttackAudioSource;
     bool alreadyAttacked;
     public int damageAmount = 20;
 
@@ -19,12 +21,14 @@ public class EnemyAI : MonoBehaviour
     public bool playerInSightRange, playerInAttackRange;
 
     private PlayerHealth playerHealth;
+    private Animator animator;
 
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         playerHealth = player.GetComponent<PlayerHealth>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -40,6 +44,8 @@ public class EnemyAI : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        animator.SetBool("isRunning", true);
+        animator.SetBool("isAttacking", false);
     }
 
     private void AttackPlayer()
@@ -49,6 +55,16 @@ public class EnemyAI : MonoBehaviour
 
         if (!alreadyAttacked)
         {
+            // Trigger attack animation
+            animator.SetBool("isAttacking", true);
+            animator.SetBool("isRunning", false);
+
+            // Play Attack sound
+            if (AttackSound != null)
+            {
+                ZombieAttackAudioSource.Play();
+            }
+
             // Attack code here: Deal damage to player
             if (playerHealth != null)
             {
@@ -68,6 +84,7 @@ public class EnemyAI : MonoBehaviour
     private void ResetAttack()
     {
         alreadyAttacked = false;
+        animator.SetBool("isAttacking", false);
     }
 
     private void OnDrawGizmosSelected()
