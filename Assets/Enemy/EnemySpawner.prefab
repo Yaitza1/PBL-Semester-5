@@ -60,6 +60,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  waveDisplayText: {fileID: 0}
+  waveDisplayDuration: 5
   onWaveComplete:
     m_PersistentCalls:
       m_Calls:

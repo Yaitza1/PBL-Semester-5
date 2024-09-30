@@ -31,11 +31,11 @@ public class Gun : MonoBehaviour
     {
         CurrentCooldown = FireCooldown;
         currentAmmo = MaxAmmo;
+        UpdateAmmoDisplay();
     }
 
     void Update()
     {
-        AmmoDisplay.text = currentAmmo.ToString();
         if (isReloading)
         {
             return;
@@ -77,6 +77,7 @@ public class Gun : MonoBehaviour
             OnGunShoot?.Invoke();
             CurrentCooldown = FireCooldown;
             currentAmmo--;
+            UpdateAmmoDisplay();
             Debug.Log($"Ammo left: {currentAmmo}");
 
             // Play shoot sound
@@ -94,6 +95,9 @@ public class Gun : MonoBehaviour
             isReloading = true;
             Debug.Log("Reloading...");
 
+            // Update ammo display to show reloading
+            AmmoDisplay.text = "Reloading...";
+
             // Play reload sound
             if (reloadSound != null)
             {
@@ -104,11 +108,17 @@ public class Gun : MonoBehaviour
 
             currentAmmo = MaxAmmo;
             isReloading = false;
+            UpdateAmmoDisplay();
             Debug.Log("Reload complete. Ammo refilled.");
         }
         else if (currentAmmo == MaxAmmo)
         {
             Debug.Log("Magazine is already full!");
         }
+    }
+
+    void UpdateAmmoDisplay()
+    {
+        AmmoDisplay.text = currentAmmo.ToString();
     }
 }

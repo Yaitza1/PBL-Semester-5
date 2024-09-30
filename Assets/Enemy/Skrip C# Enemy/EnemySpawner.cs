@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
+    // Kelas untuk mendefinisikan properti setiap wave
     [System.Serializable]
     public class Wave
     {
@@ -18,6 +20,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float maxSpawnRadius = 25f;
     [SerializeField] private float minDistanceFromPlayer = 15f;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Text waveDisplayText;
+    [SerializeField] private float waveDisplayDuration = 5f;
 
     public UnityEvent onWaveComplete;
     public UnityEvent onAllWavesComplete;
@@ -30,15 +34,28 @@ public class EnemySpawner : MonoBehaviour
     private Transform playerTransform;
     private int enemyCounter = 1;
     private int currentWave = 0;
+    private Coroutine waveDisplayCoroutine;
 
     private void Start()
     {
         Debug.Log("EnemySpawner: Start method called");
+        
+        // Mencari player di scene
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         if (playerTransform == null)
         {
             Debug.LogError("EnemySpawner: Player not found! Make sure your player has the 'Player' tag.");
             return;
+        }
+
+        // Memeriksa apakah waveDisplayText telah di-assign
+        if (waveDisplayText == null)
+        {
+            Debug.LogError("EnemySpawner: Wave display Text component is not assigned!");
+        }
+        else
+        {
+            waveDisplayText.gameObject.SetActive(false); // Sembunyikan teks di awal
         }
 
         Debug.Log($"EnemySpawner: onWaveComplete listeners: {onWaveComplete.GetPersistentEventCount()}");
@@ -52,15 +69,18 @@ public class EnemySpawner : MonoBehaviour
         Debug.Log("EnemySpawner: Starting SpawnWaves coroutine");
         for (int i = 0; i < waves.Length; i++)
         {
+            currentWave = i;
+            ShowWaveDisplay(); // Tampilkan informasi wave baru
+            
             Debug.Log($"EnemySpawner: Preparing to spawn Wave {i + 1}");
             yield return new WaitForSeconds(waves[i].delayBeforeWave);
             Debug.Log($"EnemySpawner: Delay before Wave {i + 1} complete, starting spawn");
             yield return StartCoroutine(SpawnWave(i));
 
             // Play zombie sound
-            if (zombieSound != null)
+            if (zombieSound != null && zombieAudioSource != null)
             {
-                zombieAudioSource.Play();
+                zombieAudioSource.PlayOneShot(zombieSound);
             }
             
             Debug.Log($"EnemySpawner: Wave {i + 1} spawned, waiting for zombies to be defeated");
@@ -71,8 +91,7 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(1f);
             }
 
-            currentWave++;
-            Debug.Log($"EnemySpawner: Wave {currentWave} completed!");
+            Debug.Log($"EnemySpawner: Wave {currentWave + 1} completed!");
             onWaveComplete?.Invoke();
 
             if (i == waves.Length - 1)
@@ -135,6 +154,28 @@ public class EnemySpawner : MonoBehaviour
 
         Debug.LogWarning("EnemySpawner: Failed to find valid spawn position after max attempts");
         return Vector3.zero;
+    }
+
+    // Metode untuk menampilkan informasi wave
+    private void ShowWaveDisplay()
+    {
+        if (waveDisplayCoroutine != null)
+        {
+            StopCoroutine(waveDisplayCoroutine);
+        }
+        waveDisplayCoroutine = StartCoroutine(ShowWaveDisplayCoroutine());
+    }
+
+    // Coroutine untuk menampilkan dan menyembunyikan informasi wave
+    private IEnumerator ShowWaveDisplayCoroutine()
+    {
+        if (waveDisplayText != null)
+        {
+            waveDisplayText.text = $"Wave: {currentWave + 1} / {waves.Length}";
+            waveDisplayText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(waveDisplayDuration);
+            waveDisplayText.gameObject.SetActive(false);
+        }
     }
 
     public void RestartWaves()

@@ -1921,7 +1921,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 128
-  timeBetweenAttacks: 3
+  timeBetweenAttacks: 2
   AttackSound: {fileID: 8300000, guid: e8c2a1d73a7ea63438e1ef8ebb4994dd, type: 3}
   ZombieAttackAudioSource: {fileID: -4183709699467547166}
   damageAmount: 20

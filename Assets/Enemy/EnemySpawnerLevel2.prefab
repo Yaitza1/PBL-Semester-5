@@ -60,6 +60,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  waveDisplayText: {fileID: 0}
+  waveDisplayDuration: 5
   onWaveComplete:
     m_PersistentCalls:
       m_Calls:
@@ -105,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 7667366123257955912}
-  nextSceneName: 
+  NextSceneName: 
 --- !u!82 &9202352096878726657
 AudioSource:
   m_ObjectHideFlags: 0
