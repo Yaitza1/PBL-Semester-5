@@ -17,11 +17,6 @@ public class PlayerMovement : MonoBehaviour
     public float airDrag = 0f;
     private bool readyToJump = true;
 
-    [Header("Crouching")]
-    public float crouchSpeed = 3.5f;
-    public float crouchYScale = 0.5f;
-    private float startYScale;
-
     [Header("Ground Check")]
     public float playerHeight = 2f;
     public LayerMask whatIsGround;
@@ -56,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
         Idle,
         Walking,
         Running,
-        Crouching,
         Air
     }
     public MovementState state;
@@ -66,9 +60,6 @@ public class PlayerMovement : MonoBehaviour
         // Get and configure Rigidbody component
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
-        // Store initial y scale for crouching
-        startYScale = transform.localScale.y;
     }
 
     private void Update()
@@ -111,29 +102,12 @@ public class PlayerMovement : MonoBehaviour
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-
-        // Handle crouching
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-        }
     }
 
     private void StateHandler()
     {
-        // Crouching
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            state = MovementState.Crouching;
-            moveSpeed = crouchSpeed;
-        }
         // Running
-        else if (grounded && Input.GetKey(KeyCode.LeftShift))
+        if (grounded && Input.GetKey(KeyCode.LeftShift))
         {
             state = MovementState.Running;
             moveSpeed = runSpeed;
