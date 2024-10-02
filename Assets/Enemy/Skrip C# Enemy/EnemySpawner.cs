@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
-    // Kelas untuk mendefinisikan properti setiap wave
     [System.Serializable]
     public class Wave
     {
@@ -21,6 +20,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float minDistanceFromPlayer = 15f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Text waveDisplayText;
+    [SerializeField] private Text zombieCountText;
+    [SerializeField] private Image zombieImage;
     [SerializeField] private float waveDisplayDuration = 5f;
 
     public UnityEvent onWaveComplete;
@@ -40,7 +41,6 @@ public class EnemySpawner : MonoBehaviour
     {
         Debug.Log("EnemySpawner: Start method called");
         
-        // Mencari player di scene
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         if (playerTransform == null)
         {
@@ -48,14 +48,31 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        // Memeriksa apakah waveDisplayText telah di-assign
         if (waveDisplayText == null)
         {
             Debug.LogError("EnemySpawner: Wave display Text component is not assigned!");
         }
         else
         {
-            waveDisplayText.gameObject.SetActive(false); // Sembunyikan teks di awal
+            waveDisplayText.gameObject.SetActive(false);
+        }
+
+        if (zombieCountText == null)
+        {
+            Debug.LogError("EnemySpawner: Zombie count Text component is not assigned!");
+        }
+        else
+        {
+            zombieCountText.gameObject.SetActive(false); // Hide zombie count at start
+        }
+
+        if (zombieImage == null)
+        {
+            Debug.LogError("EnemySpawner: Zombie Image component is not assigned!");
+        }
+        else
+        {
+            zombieImage.gameObject.SetActive(false); // Hide zombie image at start
         }
 
         Debug.Log($"EnemySpawner: onWaveComplete listeners: {onWaveComplete.GetPersistentEventCount()}");
@@ -70,26 +87,32 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < waves.Length; i++)
         {
             currentWave = i;
-            ShowWaveDisplay(); // Tampilkan informasi wave baru
+            ShowWaveDisplay();
             
             Debug.Log($"EnemySpawner: Preparing to spawn Wave {i + 1}");
             yield return new WaitForSeconds(waves[i].delayBeforeWave);
             Debug.Log($"EnemySpawner: Delay before Wave {i + 1} complete, starting spawn");
             yield return StartCoroutine(SpawnWave(i));
 
-            // Play zombie sound
             if (zombieSound != null && zombieAudioSource != null)
             {
                 zombieAudioSource.PlayOneShot(zombieSound);
             }
             
+            // Show zombie image and count when wave starts
+            SetZombieUIVisibility(true);
+            
             Debug.Log($"EnemySpawner: Wave {i + 1} spawned, waiting for zombies to be defeated");
             while (spawnedEnemies.Count > 0)
             {
                 spawnedEnemies.RemoveAll(enemy => enemy == null);
+                UpdateZombieCountDisplay();
                 Debug.Log($"EnemySpawner: Remaining Zombie in Wave {i + 1} = {spawnedEnemies.Count}");
                 yield return new WaitForSeconds(1f);
             }
+
+            // Hide zombie image and count when wave is complete
+            SetZombieUIVisibility(false);
 
             Debug.Log($"EnemySpawner: Wave {currentWave + 1} completed!");
             onWaveComplete?.Invoke();
@@ -99,6 +122,18 @@ public class EnemySpawner : MonoBehaviour
                 Debug.Log("EnemySpawner: All waves completed!");
                 onAllWavesComplete?.Invoke();
             }
+        }
+    }
+
+    private void SetZombieUIVisibility(bool visible)
+    {
+        if (zombieImage != null)
+        {
+            zombieImage.gameObject.SetActive(visible);
+        }
+        if (zombieCountText != null)
+        {
+            zombieCountText.gameObject.SetActive(visible);
         }
     }
 
@@ -122,6 +157,7 @@ public class EnemySpawner : MonoBehaviour
             enemy.name = $"Zombie {enemyCounter} (Wave {currentWave + 1})";
             enemyCounter++;
             spawnedEnemies.Add(enemy);
+            UpdateZombieCountDisplay();
             Debug.Log($"EnemySpawner: Spawned {enemy.name} at position {spawnPosition}");
         }
         else
@@ -156,7 +192,6 @@ public class EnemySpawner : MonoBehaviour
         return Vector3.zero;
     }
 
-    // Metode untuk menampilkan informasi wave
     private void ShowWaveDisplay()
     {
         if (waveDisplayCoroutine != null)
@@ -166,7 +201,6 @@ public class EnemySpawner : MonoBehaviour
         waveDisplayCoroutine = StartCoroutine(ShowWaveDisplayCoroutine());
     }
 
-    // Coroutine untuk menampilkan dan menyembunyikan informasi wave
     private IEnumerator ShowWaveDisplayCoroutine()
     {
         if (waveDisplayText != null)
@@ -178,6 +212,14 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    private void UpdateZombieCountDisplay()
+    {
+        if (zombieCountText != null)
+        {
+            zombieCountText.text = $"X {spawnedEnemies.Count}";
+        }
+    }
+
     public void RestartWaves()
     {
         Debug.Log("EnemySpawner: Restarting waves");
@@ -185,6 +227,7 @@ public class EnemySpawner : MonoBehaviour
         DespawnAllEnemies();
         currentWave = 0;
         enemyCounter = 1;
+        SetZombieUIVisibility(false);
         StartCoroutine(SpawnWaves());
     }
 
@@ -200,13 +243,14 @@ public class EnemySpawner : MonoBehaviour
             }
         }
         spawnedEnemies.Clear();
+        UpdateZombieCountDisplay();
         Debug.Log("EnemySpawner: All Zombies despawned");
     }
 
-    // Optional: Add this method to manually trigger wave completion (for testing)
     public void ForceCompleteCurrentWave()
     {
         Debug.Log($"EnemySpawner: Forcing completion of Wave {currentWave + 1}");
         DespawnAllEnemies();
+        SetZombieUIVisibility(false);
     }
 }
