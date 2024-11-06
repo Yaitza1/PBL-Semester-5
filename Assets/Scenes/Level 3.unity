@@ -434,34 +434,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4188378688177004884, guid: 9fc885d1f9bcfe24987a95ce5dc93471, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 166357820}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fc885d1f9bcfe24987a95ce5dc93471, type: 3}
---- !u!1 &166357813 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4188378688177004884, guid: 9fc885d1f9bcfe24987a95ce5dc93471, type: 3}
-  m_PrefabInstance: {fileID: 135421424}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &166357820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 166357813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0634b0cb7f43b4b8bd06bfe14ab0ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalFOV: 60
-  aimFOV: 45
-  aimSmoothing: 8
-  aimPosition: {x: -0.926, y: -0.1, z: 0.35}
-  aimRotation: {x: 0, y: 0, z: 0}
-  playerCamera: {fileID: 2051112698}
 --- !u!1 &298102915
 GameObject:
   m_ObjectHideFlags: 0
@@ -5733,11 +5707,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4707294294625074, guid: 1e4f0d9e7dbf221419b0bd0e1286aa16, type: 3}
   m_PrefabInstance: {fileID: 2044079201}
-  m_PrefabAsset: {fileID: 0}
---- !u!20 &2051112698 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 1885643325514672381, guid: 9fc885d1f9bcfe24987a95ce5dc93471, type: 3}
-  m_PrefabInstance: {fileID: 135421424}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
