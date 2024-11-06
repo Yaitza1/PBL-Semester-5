@@ -5816,6 +5816,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7585070134308865996, guid: 8941e9d328edb6e4394beb9eb5a838fd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4517822170564976914}
+    - targetCorrespondingSourceObject: {fileID: 7585070134308865996, guid: 8941e9d328edb6e4394beb9eb5a838fd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 664919227621603063}
   m_SourcePrefab: {fileID: 100100000, guid: 8941e9d328edb6e4394beb9eb5a838fd, type: 3}
 --- !u!4 &1048713114845086532 stripped
 Transform:
@@ -5887,6 +5890,11 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!20 &1885643325514672381 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5280663791458029157, guid: 8941e9d328edb6e4394beb9eb5a838fd, type: 3}
+  m_PrefabInstance: {fileID: 6008797099758249624}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4188378688177004884 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7585070134308865996, guid: 8941e9d328edb6e4394beb9eb5a838fd, type: 3}
@@ -6084,6 +6092,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &664919227621603063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4188378688177004884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0634b0cb7f43b4b8bd06bfe14ab0ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalFOV: 60
+  aimFOV: 40
+  aimSmoothing: 10
+  aimPosition: {x: -0.926, y: -0.1, z: 0.35}
+  aimRotation: {x: 0, y: 0, z: 0}
+  playerCamera: {fileID: 1885643325514672381}
 --- !u!4 &7817375265974413067 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4548473181776150931, guid: 8941e9d328edb6e4394beb9eb5a838fd, type: 3}
