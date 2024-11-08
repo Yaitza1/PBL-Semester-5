@@ -423,6 +423,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerLevel3
       objectReference: {fileID: 0}
+    - target: {fileID: 4468555095221463294, guid: 9fc885d1f9bcfe24987a95ce5dc93471, type: 3}
+      propertyPath: Crosshair
+      value: 
+      objectReference: {fileID: 1196615404}
     - target: {fileID: 6212576015407945498, guid: 9fc885d1f9bcfe24987a95ce5dc93471, type: 3}
       propertyPath: healthBar
       value: 
