@@ -2,92 +2,81 @@ using UnityEngine;
 
 public class WeaponAiming : MonoBehaviour
 {
+    [System.Serializable]
+    public class AimSettings
+    {
+        public float normalFOV = 60f;
+        public float aimFOV = 30f;
+        public float smoothing = 10f;
+        public Vector3 position = new Vector3(-0.926f, -0.1f, 0.5f);
+        public Vector3 rotation = Vector3.zero;
+    }
+
     [Header("Aiming Settings")]
-    [SerializeField] private float normalFOV = 60f;
-    [SerializeField] private float aimFOV = 30f;
-    [SerializeField] private float aimSmoothing = 10f;
-    
-    [Header("Aim Position Settings")]
-    [SerializeField] private Vector3 aimPosition = new Vector3(0f, -0.1f, 0.5f);    // Posisi saat aim
-    [SerializeField] private Vector3 aimRotation = new Vector3(0f, 0f, 0f);         // Rotasi saat aim
+    [SerializeField] private AimSettings aimSettings = new AimSettings();
     
     [Header("References")]
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private GameObject Crosshair;
+    [SerializeField] private GameObject crosshair;
 
     private Vector3 startPosition;
     private Quaternion startRotation;
-    private bool isAiming = false;
+    private bool isAiming;
+    private float currentFOV;
 
     private void Start()
     {
-        if (playerCamera == null)
-            playerCamera = Camera.main;
-
-        if (Crosshair != null)
-        {
-            Crosshair.SetActive(true);
-        }
-
-        // Simpan posisi awal
-        startPosition = transform.localPosition;
-        startRotation = transform.localRotation;
+        InitializeReferences();
+        SaveStartTransform();
     }
     
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            isAiming = true;
-        }
-        else if (Input.GetMouseButtonUp(1))
-        {
-            isAiming = false;
-        }
-
-        if (isAiming)
-        {
-            // Nonaktifkan Crosshair saat aiming
-            if (Crosshair != null)
-            {
-                Crosshair.SetActive(false);
-            }
-        }
-        else
-        {
-            // Aktifkan Crosshair kembali saat tidak aiming
-            if (Crosshair != null)
-            {
-                Crosshair.SetActive(true);
-            }
-        }
-
+        UpdateAimingState();
+        UpdateCrosshairVisibility();
         HandleAiming();
+    }
+
+    private void InitializeReferences()
+    {
+        playerCamera = playerCamera ? playerCamera : Camera.main;
+        if (crosshair) crosshair.SetActive(true);
+    }
+
+    private void SaveStartTransform()
+    {
+        startPosition = transform.localPosition;
+        startRotation = transform.localRotation;
+        currentFOV = playerCamera.fieldOfView;
+    }
+
+    private void UpdateAimingState()
+    {
+        if (Input.GetMouseButtonDown(1)) isAiming = true;
+        else if (Input.GetMouseButtonUp(1)) isAiming = false;
+    }
+
+    private void UpdateCrosshairVisibility()
+    {
+        if (crosshair) crosshair.SetActive(!isAiming);
     }
     
     private void HandleAiming()
     {
-        float targetFOV = isAiming ? aimFOV : normalFOV;
-        playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, Time.deltaTime * aimSmoothing);
-        
-        if (isAiming)
-        {
-            // Bergerak ke posisi aim
-            transform.localPosition = Vector3.Lerp(transform.localPosition, aimPosition, Time.deltaTime * aimSmoothing);
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(aimRotation), Time.deltaTime * aimSmoothing);
-        }
-        else
-        {
-            // Kembali ke posisi normal
-            transform.localPosition = Vector3.Lerp(transform.localPosition, startPosition, Time.deltaTime * aimSmoothing);
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, startRotation, Time.deltaTime * aimSmoothing);
-        }
+        float targetFOV = isAiming ? aimSettings.aimFOV : aimSettings.normalFOV;
+        Vector3 targetPosition = isAiming ? aimSettings.position : startPosition;
+        Quaternion targetRotation = isAiming ? Quaternion.Euler(aimSettings.rotation) : startRotation;
+
+        currentFOV = Mathf.Lerp(currentFOV, targetFOV, Time.deltaTime * aimSettings.smoothing);
+        playerCamera.fieldOfView = currentFOV;
+
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, Time.deltaTime * aimSettings.smoothing);
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * aimSettings.smoothing);
     }
 
-    // Optional: Method untuk mengubah posisi aim melalui script lain
     public void SetAimPosition(Vector3 newPosition, Vector3 newRotation)
     {
-        aimPosition = newPosition;
-        aimRotation = newRotation;
+        aimSettings.position = newPosition;
+        aimSettings.rotation = newRotation;
     }
 }

@@ -603,13 +603,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f0634b0cb7f43b4b8bd06bfe14ab0ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalFOV: 60
-  aimFOV: 30
-  aimSmoothing: 8
-  aimPosition: {x: -0.926, y: -0.1, z: 0.5}
-  aimRotation: {x: 0, y: 0, z: 0}
+  aimSettings:
+    normalFOV: 60
+    aimFOV: 30
+    smoothing: 10
+    position: {x: -0.926, y: -0.1, z: 0.5}
+    rotation: {x: 0, y: 0, z: 0}
   playerCamera: {fileID: 3817146377914245799}
-  Crosshair: {fileID: 0}
+  crosshair: {fileID: 0}
 --- !u!1 &2033004833446982052
 GameObject:
   m_ObjectHideFlags: 0

@@ -4877,7 +4877,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1383994599}
     - target: {fileID: 7211095751102584478, guid: 4732b787b08abb84bb6ff72a8f8b9965, type: 3}
-      propertyPath: Crosshair
+      propertyPath: crosshair
       value: 
       objectReference: {fileID: 459905482}
     - target: {fileID: 8205133559264912326, guid: 4732b787b08abb84bb6ff72a8f8b9965, type: 3}
