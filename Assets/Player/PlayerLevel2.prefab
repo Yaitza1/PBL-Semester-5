@@ -604,11 +604,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalFOV: 60
-  aimFOV: 45
+  aimFOV: 30
   aimSmoothing: 8
-  aimPosition: {x: -0.926, y: -0.1, z: 0.35}
+  aimPosition: {x: -0.926, y: -0.1, z: 0.5}
   aimRotation: {x: 0, y: 0, z: 0}
   playerCamera: {fileID: 3817146377914245799}
+  Crosshair: {fileID: 0}
 --- !u!1 &2033004833446982052
 GameObject:
   m_ObjectHideFlags: 0

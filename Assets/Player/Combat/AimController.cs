@@ -4,15 +4,16 @@ public class WeaponAiming : MonoBehaviour
 {
     [Header("Aiming Settings")]
     [SerializeField] private float normalFOV = 60f;
-    [SerializeField] private float aimFOV = 45f;
-    [SerializeField] private float aimSmoothing = 8f;
+    [SerializeField] private float aimFOV = 30f;
+    [SerializeField] private float aimSmoothing = 10f;
     
     [Header("Aim Position Settings")]
-    [SerializeField] private Vector3 aimPosition = new Vector3(0f, -0.1f, 0.3f);    // Posisi saat aim
+    [SerializeField] private Vector3 aimPosition = new Vector3(0f, -0.1f, 0.5f);    // Posisi saat aim
     [SerializeField] private Vector3 aimRotation = new Vector3(0f, 0f, 0f);         // Rotasi saat aim
     
     [Header("References")]
     [SerializeField] private Camera playerCamera;
+    [SerializeField] private GameObject Crosshair;
 
     private Vector3 startPosition;
     private Quaternion startRotation;
@@ -22,6 +23,11 @@ public class WeaponAiming : MonoBehaviour
     {
         if (playerCamera == null)
             playerCamera = Camera.main;
+
+        if (Crosshair != null)
+        {
+            Crosshair.SetActive(true);
+        }
 
         // Simpan posisi awal
         startPosition = transform.localPosition;
@@ -37,6 +43,23 @@ public class WeaponAiming : MonoBehaviour
         else if (Input.GetMouseButtonUp(1))
         {
             isAiming = false;
+        }
+
+        if (isAiming)
+        {
+            // Nonaktifkan Crosshair saat aiming
+            if (Crosshair != null)
+            {
+                Crosshair.SetActive(false);
+            }
+        }
+        else
+        {
+            // Aktifkan Crosshair kembali saat tidak aiming
+            if (Crosshair != null)
+            {
+                Crosshair.SetActive(true);
+            }
         }
 
         HandleAiming();
