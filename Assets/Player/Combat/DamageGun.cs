@@ -7,6 +7,7 @@ public class DamageGun : MonoBehaviour
     public float damage = 20f;
     public float bulletRange = 100f;
     private Camera playerCamera;
+    public GameObject ImpactEffect;
  
     private void Start()
     {
@@ -23,6 +24,8 @@ public class DamageGun : MonoBehaviour
             if (hit.collider.TryGetComponent(out EnemyHealth enemy))
             {
                 enemy.TakeDamage(damage);
+                GameObject impactGO = Instantiate(ImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactGO, 2f);
                 break;
             }
         }
