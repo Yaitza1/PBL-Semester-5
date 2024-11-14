@@ -5,8 +5,11 @@ using UnityEngine.UI;
 public class SceneTransition : MonoBehaviour
 {
     public static SceneTransition Instance;
+
+    [Header("Transition Settings")]
     [SerializeField] private Image transitionPanel;
     [SerializeField] private float transitionTime = 1f;
+    [SerializeField] private AnimationCurve transitionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     private void Awake()
     {
@@ -27,8 +30,8 @@ public class SceneTransition : MonoBehaviour
         while (elapsedTime < transitionTime)
         {
             elapsedTime += Time.deltaTime;
-            float alpha = Mathf.Clamp01(elapsedTime / transitionTime);
-            transitionPanel.color = new Color(0f, 0f, 0f, alpha);
+            float progress = transitionCurve.Evaluate(elapsedTime / transitionTime);
+            transitionPanel.color = new Color(0f, 0f, 0f, progress);
             yield return null;
         }
     }
@@ -39,8 +42,8 @@ public class SceneTransition : MonoBehaviour
         while (elapsedTime < transitionTime)
         {
             elapsedTime += Time.deltaTime;
-            float alpha = 1f - Mathf.Clamp01(elapsedTime / transitionTime);
-            transitionPanel.color = new Color(0f, 0f, 0f, alpha);
+            float progress = 1f - transitionCurve.Evaluate(elapsedTime / transitionTime);
+            transitionPanel.color = new Color(0f, 0f, 0f, progress);
             yield return null;
         }
     }
