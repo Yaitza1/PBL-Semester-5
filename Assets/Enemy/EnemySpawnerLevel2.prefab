@@ -48,11 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 783947009586093567, guid: 645d78bbd5a380d46abec9fae3aa04a2, type: 3}
   waves:
-  - numberOfEnemies: 15
-    delayBeforeWave: 5
-  - numberOfEnemies: 30
-    delayBeforeWave: 5
-  - numberOfEnemies: 40
+  - numberOfEnemies: 5
     delayBeforeWave: 5
   minSpawnRadius: 0
   maxSpawnRadius: 100
@@ -61,6 +57,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   waveDisplayText: {fileID: 0}
+  zombieCountText: {fileID: 0}
+  zombieImage: {fileID: 0}
   waveDisplayDuration: 5
   onWaveComplete:
     m_PersistentCalls:
@@ -107,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 7667366123257955912}
-  NextSceneName: 
+  NextSceneName: Level 3
 --- !u!82 &9202352096878726657
 AudioSource:
   m_ObjectHideFlags: 0
