@@ -1999,7 +1999,6 @@ GameObject:
   - component: {fileID: 766748469}
   - component: {fileID: 766748472}
   - component: {fileID: 766748471}
-  - component: {fileID: 766748470}
   m_Layer: 5
   m_Name: TransitionPanel
   m_TagString: Untagged
@@ -2026,20 +2025,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1930, y: 1090}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &766748470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 766748468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 183fab406d7163b4f91a5cdfd5f79932, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionPanel: {fileID: 766748471}
-  transitionTime: 1
 --- !u!114 &766748471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5032,6 +5017,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5201852383181298455, guid: b933ca2300e838b4c9569b6b41bbc3a9, type: 3}
+      propertyPath: transitionPanel
+      value: 
+      objectReference: {fileID: 766748471}
     - target: {fileID: 7667366123257955912, guid: b933ca2300e838b4c9569b6b41bbc3a9, type: 3}
       propertyPath: zombieImage
       value: 
