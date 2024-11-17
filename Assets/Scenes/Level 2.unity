@@ -5037,6 +5037,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawnerLevel2
       objectReference: {fileID: 0}
+    - target: {fileID: 8633200578538890759, guid: b933ca2300e838b4c9569b6b41bbc3a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
