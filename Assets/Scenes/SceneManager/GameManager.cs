@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public EnemySpawner enemySpawner;
     public string NextSceneName;
+    public GameObject boss; // Referensi ke prefab boss (ditambahkan)
+    private bool isBossDefeated = false; // Flag untuk status boss (ditambahkan)
+    private bool canLoadNextScene = true; // Flag untuk kontrol LoadNextScene
 
     void Start()
     {
@@ -18,8 +21,13 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("No EnemySpawner found. This Scene must be a Cutscene");
-            
             StartCoroutine(LoadNextSceneWithDelay(10f));
+        }
+
+        // Cek apakah ini Level 3
+        if (SceneManager.GetActiveScene().name == "Level 3")
+        {
+            canLoadNextScene = false; // Matikan LoadNextScene untuk Level 3
         }
 
         // Start with fade out effect
@@ -34,6 +42,63 @@ public class GameManager : MonoBehaviour
     public void OnAllWavesCompleted()
     {
         Debug.Log("Congrats For surviving This Level");
+
+        // Mengaktifkan kembali BossSpawner
+        BossSpawner bossSpawner = FindObjectOfType<BossSpawner>();
+        if (bossSpawner != null)
+        {
+            bossSpawner.EnableSpawner();
+            Debug.Log("BossSpawner has been re-enabled by GameManager.");
+        }
+
+        if (SceneManager.GetActiveScene().name == "Level 3")
+        {
+            // Jika Level 3, pastikan LoadNextScene baru berjalan setelah boss dikalahkan
+            if (boss != null && !isBossDefeated)
+            {
+                StartCoroutine(CheckBossDefeated());
+            }
+        }
+        else
+        {
+            StartCoroutine(LoadNextScene());
+        }
+    }
+
+    void OnEnable()
+    {
+        // Daftarkan event untuk mendeteksi kekalahan musuh
+        EnemyHealth.OnEnemyDefeated += HandleEnemyDefeated;
+    }
+
+    void OnDisable()
+    {
+        // Hapus pendaftaran event
+        EnemyHealth.OnEnemyDefeated -= HandleEnemyDefeated;
+    }
+
+    private void HandleEnemyDefeated(GameObject enemy)
+    {
+        // Cek apakah musuh yang dikalahkan adalah boss
+        if (enemy.CompareTag("Boss"))
+        {
+            Debug.Log("Boss defeated!");
+            isBossDefeated = true;
+        }
+    }
+
+    private IEnumerator CheckBossDefeated()
+    {
+        // Tunggu hingga boss dikalahkan
+        while (!isBossDefeated)
+        {
+            yield return null;
+        }
+
+        // Beri delay sebelum memuat scene berikutnya
+        yield return new WaitForSeconds(3f);
+
+        canLoadNextScene = true; // Izinkan LoadNextScene
         StartCoroutine(LoadNextScene());
     }
 
@@ -45,6 +110,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator LoadNextScene()
     {
+        if (!canLoadNextScene) yield break; // Jangan lakukan apapun jika LoadNextScene belum diizinkan
+
         Debug.Log("Loading next scene...");
         yield return StartCoroutine(SceneTransition.Instance.FadeIn());
 
@@ -52,7 +119,7 @@ public class GameManager : MonoBehaviour
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(NextSceneName);
 
-            // Wait until the asynchronous scene fully loads
+            // Tunggu hingga scene selesai dimuat
             while (!asyncLoad.isDone)
             {
                 float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
@@ -65,8 +132,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Next scene name is not set in the GameManager!");
         }
 
-        // Fade out after new scene is loaded
+        // Fade out setelah scene baru dimuat
         yield return StartCoroutine(SceneTransition.Instance.FadeOut());
     }
 }
-
