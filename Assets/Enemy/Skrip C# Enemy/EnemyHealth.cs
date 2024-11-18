@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -9,6 +11,9 @@ public class EnemyHealth : MonoBehaviour
     private float currentHealth;
     public HealthBar healthBar;
     public Text HealthNumber;
+
+    // Tambahkan event untuk notifikasi kekalahan Boss
+    public static event Action<GameObject> OnEnemyDefeated;
 
     public float Health
     {
@@ -44,6 +49,8 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
+        // Trigger event jika boss dikalahkan
+        OnEnemyDefeated?.Invoke(gameObject);
         Debug.Log($"{gameObject.name} has been destroyed!");
         Destroy(gameObject);
     }
