@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26021a65020b0f4aa42b34b4603d6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 783947009586093567, guid: 645d78bbd5a380d46abec9fae3aa04a2, type: 3}
+  enemyPrefab: {fileID: 2648058668894542761, guid: 3d2706f6713860a4ea78dd66a1c279e4, type: 3}
   waves:
   - numberOfEnemies: 5
     delayBeforeWave: 5
@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 7667366123257955912}
   NextSceneName: Cutscene 2
+  boss: {fileID: 0}
 --- !u!82 &9202352096878726657
 AudioSource:
   m_ObjectHideFlags: 0
