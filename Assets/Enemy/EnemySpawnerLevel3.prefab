@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26021a65020b0f4aa42b34b4603d6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 8031471912759164451, guid: da5fb82fbf49d8944b39a16f50774b9c, type: 3}
+  enemyPrefab: {fileID: 2344888902620963112, guid: da5fb82fbf49d8944b39a16f50774b9c, type: 3}
   waves:
   - numberOfEnemies: 5
     delayBeforeWave: 5
