@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7667366123257955912}
   - component: {fileID: 8048326230856014572}
   - component: {fileID: 9202352096878726657}
+  - component: {fileID: 5201852383181298455}
   m_Layer: 0
   m_Name: EnemySpawnerLevel2
   m_TagString: Untagged
@@ -48,11 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 783947009586093567, guid: 645d78bbd5a380d46abec9fae3aa04a2, type: 3}
   waves:
-  - numberOfEnemies: 15
-    delayBeforeWave: 5
-  - numberOfEnemies: 30
-    delayBeforeWave: 5
-  - numberOfEnemies: 40
+  - numberOfEnemies: 5
     delayBeforeWave: 5
   minSpawnRadius: 0
   maxSpawnRadius: 100
@@ -61,6 +58,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   waveDisplayText: {fileID: 0}
+  zombieCountText: {fileID: 0}
+  zombieImage: {fileID: 0}
   waveDisplayDuration: 5
   onWaveComplete:
     m_PersistentCalls:
@@ -107,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 7667366123257955912}
-  NextSceneName: 
+  NextSceneName: Cutscene 2
 --- !u!82 &9202352096878726657
 AudioSource:
   m_ObjectHideFlags: 0
@@ -201,6 +200,44 @@ AudioSource:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &5201852383181298455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8633200578538890759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183fab406d7163b4f91a5cdfd5f79932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionPanel: {fileID: 0}
+  transitionTime: 1
+  transitionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
