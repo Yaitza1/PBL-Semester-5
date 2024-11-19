@@ -623,7 +623,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 0}
-  NextSceneName: 
+  NextSceneName: Level 1
+  boss: {fileID: 0}
 --- !u!4 &1282734683
 Transform:
   m_ObjectHideFlags: 0

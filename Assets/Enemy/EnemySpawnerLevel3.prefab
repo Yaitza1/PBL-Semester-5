@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 5567654046637226009}
-  NextSceneName: level 1
+  NextSceneName: Cutscene 3
   boss: {fileID: 2466615458086226255, guid: 69ead3105ae3f53499f7f27c689eff37, type: 3}
 --- !u!82 &8467606889203238403
 AudioSource:
