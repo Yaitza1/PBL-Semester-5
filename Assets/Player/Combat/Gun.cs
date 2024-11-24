@@ -55,6 +55,7 @@ public class Gun : MonoBehaviour
         velocity = (transform.position - lastPosition) / Time.deltaTime;
         lastPosition = transform.position;
 
+        if (!PauseMenu.isPaused)
         if (isReloading)
         {
             return;
@@ -91,6 +92,7 @@ public class Gun : MonoBehaviour
 
     void TryShoot()
     {
+        if (!PauseMenu.isPaused)
         if (CurrentCooldown <= 0f && currentAmmo > 0)
         {
             OnGunShoot?.Invoke();
@@ -168,6 +170,7 @@ public class Gun : MonoBehaviour
 
     IEnumerator Reload()
     {
+        if (!PauseMenu.isPaused)
         if (currentAmmo < MaxAmmo && !isReloading)
         {
             isReloading = true;
