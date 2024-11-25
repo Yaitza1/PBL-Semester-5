@@ -55,6 +55,7 @@ public class Gun : MonoBehaviour
         velocity = (transform.position - lastPosition) / Time.deltaTime;
         lastPosition = transform.position;
 
+        if (!GameOver.isGameOver)
         if (!PauseMenu.isPaused)
         if (isReloading)
         {
@@ -92,6 +93,7 @@ public class Gun : MonoBehaviour
 
     void TryShoot()
     {
+        if (!GameOver.isGameOver)
         if (!PauseMenu.isPaused)
         if (CurrentCooldown <= 0f && currentAmmo > 0)
         {
@@ -170,6 +172,7 @@ public class Gun : MonoBehaviour
 
     IEnumerator Reload()
     {
+        if (!GameOver.isGameOver)
         if (!PauseMenu.isPaused)
         if (currentAmmo < MaxAmmo && !isReloading)
         {
