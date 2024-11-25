@@ -13,6 +13,9 @@ public class PlayerHealth : MonoBehaviour
 	public HealthBar healthBar;
     public float restartDelay = 2f;
 
+    // Reference to GameOver script
+    public GameOver gameOverManager;
+
     // Post-processing variables
     public PostProcessVolume postProcessVolume;
     public float vignetteDuration = 0.5f;
@@ -85,16 +88,22 @@ public class PlayerHealth : MonoBehaviour
 	private void Die()
     {
         Debug.Log("Player has died!");
-        // Start the coroutine to restart the level after a delay
-        StartCoroutine(RestartLevelAfterDelay());
+        if (gameOverManager != null)
+        {
+            StartCoroutine(ShowGameOverAfterDelay());
+        }
+        else
+        {
+            Debug.Log("GameOver reference hilang! Tidak bisa menampilkan game over screen.");
+        }
     }
 
-    private IEnumerator RestartLevelAfterDelay()
+    private IEnumerator ShowGameOverAfterDelay()
     {
-        // Wait for the specified delay
+        // tunggu delay
         yield return new WaitForSeconds(restartDelay);
 
-        // Restart the current level
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // Tampilkan game over screen
+        gameOverManager.ShowGameOver();
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private GameObject firstSelectedButton;
     public static bool isPaused;
     private static PauseMenu instance;
     
@@ -74,6 +75,12 @@ public class PauseMenu : MonoBehaviour
                 pauseMenuUI.SetActive(true);
                 Time.timeScale = 0f;
                 isPaused = true;
+
+                // Set selected button untuk navigasi keyboard/controller
+                if (firstSelectedButton != null)
+                {
+                    EventSystem.current.SetSelectedGameObject(firstSelectedButton);
+                }
 
                 // Tampilkan kursor saat game dipause
                 Cursor.visible = true;
