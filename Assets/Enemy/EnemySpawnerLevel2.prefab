@@ -49,7 +49,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2648058668894542761, guid: 3d2706f6713860a4ea78dd66a1c279e4, type: 3}
   waves:
-  - numberOfEnemies: 5
+  - numberOfEnemies: 10
+    delayBeforeWave: 5
+  - numberOfEnemies: 20
+    delayBeforeWave: 5
+  - numberOfEnemies: 25
     delayBeforeWave: 5
   minSpawnRadius: 0
   maxSpawnRadius: 100

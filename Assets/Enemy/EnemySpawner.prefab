@@ -51,6 +51,10 @@ MonoBehaviour:
   waves:
   - numberOfEnemies: 5
     delayBeforeWave: 5
+  - numberOfEnemies: 10
+    delayBeforeWave: 5
+  - numberOfEnemies: 15
+    delayBeforeWave: 5
   minSpawnRadius: 15
   maxSpawnRadius: 20
   minDistanceFromPlayer: 15
@@ -107,6 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 2179683798848196563}
   NextSceneName: Cutscene 1
+  boss: {fileID: 0}
 --- !u!82 &1547384499358292171
 AudioSource:
   m_ObjectHideFlags: 0

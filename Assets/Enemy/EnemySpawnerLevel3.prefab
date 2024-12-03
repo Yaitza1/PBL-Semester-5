@@ -51,6 +51,10 @@ MonoBehaviour:
   waves:
   - numberOfEnemies: 5
     delayBeforeWave: 5
+  - numberOfEnemies: 10
+    delayBeforeWave: 5
+  - numberOfEnemies: 20
+    delayBeforeWave: 5
   minSpawnRadius: 5
   maxSpawnRadius: 30
   minDistanceFromPlayer: 15
