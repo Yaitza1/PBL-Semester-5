@@ -488,7 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1931942744670555270, guid: 9fc885d1f9bcfe24987a95ce5dc93471, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.08
+      value: -0.428
       objectReference: {fileID: 0}
     - target: {fileID: 1931942744670555270, guid: 9fc885d1f9bcfe24987a95ce5dc93471, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7945,6 +7945,10 @@ PrefabInstance:
     - target: {fileID: 2886730770565058052, guid: 37312c06c1ecc49418686bae28bc7dc8, type: 3}
       propertyPath: m_Name
       value: EnemySpawnerLevel3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886730770565058052, guid: 37312c06c1ecc49418686bae28bc7dc8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4604563359403026640, guid: 37312c06c1ecc49418686bae28bc7dc8, type: 3}
       propertyPath: transitionPanel
