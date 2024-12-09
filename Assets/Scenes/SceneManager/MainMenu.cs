@@ -19,6 +19,7 @@ public class MainMenu : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         lastMouseMoveTime = Time.time;
+        StartCoroutine(SceneTransition.Instance.FadeOut());
     }
 
     private void InitializeQualitySettings()
