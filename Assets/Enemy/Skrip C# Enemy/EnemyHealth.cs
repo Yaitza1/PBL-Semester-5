@@ -12,6 +12,14 @@ public class EnemyHealth : MonoBehaviour
     public HealthBar healthBar;
     public Text HealthNumber;
 
+    // New serialized field for damage effect
+    [SerializeField] private Material damageMaterial;
+    [SerializeField] private float damageFlashDuration = 0.2f;
+
+    // Reference to the renderer to apply damage material
+    private Renderer[] enemyRenderers;
+    private Material[] originalMaterials;
+
     // Tambahkan event untuk notifikasi kekalahan Boss
     public static event Action<GameObject> OnEnemyDefeated;
     private Animator animator;
@@ -36,6 +44,19 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = startingHealth;
         healthBar.SetMaxHealth((int)startingHealth);
         animator = GetComponent<Animator>();
+
+        // Find all renderers in this GameObject and its children
+        enemyRenderers = GetComponentsInChildren<Renderer>();
+        
+        // Store original materials
+        if (enemyRenderers != null && enemyRenderers.Length > 0)
+        {
+            originalMaterials = new Material[enemyRenderers.Length];
+            for (int i = 0; i < enemyRenderers.Length; i++)
+            {
+                originalMaterials[i] = enemyRenderers[i].material;
+            }
+        }
     }
 
     void Update()
@@ -47,6 +68,36 @@ public class EnemyHealth : MonoBehaviour
     {
         Health -= damageAmount;
         Debug.Log($"Enemy took {damageAmount} damage. Current health: {Health}");
+        // Trigger damage flash effect
+        StartCoroutine(DamageFlashEffect());
+    }
+
+    private IEnumerator DamageFlashEffect()
+    {
+        // Only proceed if we have a damage material and renderers
+        if (damageMaterial != null && enemyRenderers != null && enemyRenderers.Length > 0)
+        {
+            // Apply white damage material to all renderers
+            for (int i = 0; i < enemyRenderers.Length; i++)
+            {
+                if (enemyRenderers[i] != null)
+                {
+                    enemyRenderers[i].material = damageMaterial;
+                }
+            }
+
+            // Wait for specified duration
+            yield return new WaitForSeconds(damageFlashDuration);
+
+            // Restore original materials
+            for (int i = 0; i < enemyRenderers.Length; i++)
+            {
+                if (enemyRenderers[i] != null)
+                {
+                    enemyRenderers[i].material = originalMaterials[i];
+                }
+            }
+        }
     }
 
     private void Die()
