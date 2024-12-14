@@ -602,6 +602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 0}
   NextSceneName: level 2
+  boss: {fileID: 0}
 --- !u!4 &1931536085
 Transform:
   m_ObjectHideFlags: 0
