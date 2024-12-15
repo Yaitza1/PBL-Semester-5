@@ -8,12 +8,15 @@ using UnityEngine.EventSystems; // Tambahkan ini untuk EventSystem
 public class MainMenu : MonoBehaviour
 {
     public Dropdown qualityDropdown;
-    public Dropdown resolutionDropdown; // Dropdown untuk memilih resolusi
+    public Dropdown resolutionDropdown; // Dropdown untuk resolusi
     public Toggle FullscreenToggle; // Toggle untuk fullscreen
     public Slider volumeSlider; // Slider untuk volume
     public AudioSource[] gameAudioSources; // Array untuk semua audio dalam game
-    public EventSystem eventSystem; // Referensi ke EventSystem
-    public GameObject resolutionDropdownObject; // Referensi ke GameObject Resolution Dropdown
+    public GameObject playButton; // Tombol Play
+    public GameObject BackButton; // tombol Back
+    public GameObject mainMenu; // GameObject MainMenu
+    public GameObject settingsMenu; // GameObject SettingMenu
+    public EventSystem eventSystem; // EventSystem di scene
 
     private float lastMouseMoveTime;
     private float cursorHideDelay = 2.0f;
@@ -35,6 +38,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        OpenMainMenu();
         InitializeQualitySettings();
         SetupQualityDropdown();
         InitializeResolutionSettings(); // Inisialisasi resolusi
@@ -205,9 +209,18 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    // fungsi ini untuk mengatur focus ke Resolution Dropdown
-    public void OpenSettings()
+    // fungsi ini untuk mengatur focus EventSystem
+    public void OpenMainMenu()
     {
-        eventSystem.SetSelectedGameObject(resolutionDropdownObject);
+        mainMenu.SetActive(true);
+        settingsMenu.SetActive(false);
+        eventSystem.SetSelectedGameObject(playButton); // Fokus tombol Play
+    }
+
+    public void OpenSettingsMenu()
+    {
+        mainMenu.SetActive(false);
+        settingsMenu.SetActive(true);
+        eventSystem.SetSelectedGameObject(BackButton); // Fokus tombol Back
     }
 }
