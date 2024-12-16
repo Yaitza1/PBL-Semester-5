@@ -55,9 +55,9 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void PlayGame()
+    public void PlayGame(string sceneName)
     {
-        SceneManager.LoadSceneAsync("Level 1");
+        LoadingScreen.Instance.LoadScene(sceneName);
     }
 
     public void QuitGame()
