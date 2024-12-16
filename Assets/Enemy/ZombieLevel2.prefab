@@ -1141,6 +1141,8 @@ MonoBehaviour:
   startingHealth: 100
   healthBar: {fileID: 4471910185130423226}
   HealthNumber: {fileID: 7751221866044983619}
+  damageMaterial: {fileID: 2100000, guid: de32c2958a4dae340878635e18ae67d6, type: 2}
+  damageFlashDuration: 0.1
 --- !u!82 &1236851408209189501
 AudioSource:
   m_ObjectHideFlags: 0
