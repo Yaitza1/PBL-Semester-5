@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // Handle jumping
-        if (Input.GetKey(KeyCode.Space) && readyToJump && grounded)
+        if (Input.GetButtonDown("Jump") && readyToJump && grounded)
         {
             readyToJump = false;
             Jump();
@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     private void StateHandler()
     {
         // Running
-        if (grounded && Input.GetKey(KeyCode.LeftShift))
+        if (grounded && Input.GetKey(KeyCode.LeftShift) || Input.GetButton("Sprint"))
         {
             state = MovementState.Running;
             moveSpeed = runSpeed;
