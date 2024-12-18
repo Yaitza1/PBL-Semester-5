@@ -62,7 +62,7 @@ public class Gun : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetButtonDown("Reload"))
         {
             StartCoroutine(Reload());
             return;
@@ -76,14 +76,14 @@ public class Gun : MonoBehaviour
 
         if (Automatic)
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) || Input.GetButtonDown("Shoot"))
             {
                 TryShoot();
             }
         }
         else
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0) || Input.GetButtonDown("Shoot"))
             {
                 TryShoot();
             }

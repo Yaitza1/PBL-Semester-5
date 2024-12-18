@@ -52,8 +52,8 @@ public class WeaponAiming : MonoBehaviour
 
     private void UpdateAimingState()
     {
-        if (Input.GetMouseButtonDown(1)) isAiming = true;
-        else if (Input.GetMouseButtonUp(1)) isAiming = false;
+        if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("Aiming")) isAiming = true;
+        else if (Input.GetMouseButtonUp(1) || Input.GetButtonUp("Aiming")) isAiming = false;
     }
 
     private void UpdateCrosshairVisibility()
