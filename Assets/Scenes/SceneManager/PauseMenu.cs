@@ -31,7 +31,7 @@ public class PauseMenu : MonoBehaviour
         // Hanya aktifkan kontrol pause jika UI reference valid
         if (pauseMenuUI != null)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape)  || Input.GetButtonDown("Pause"))
             {
                 if (isPaused)
                 {
