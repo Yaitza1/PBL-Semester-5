@@ -19,9 +19,22 @@ public class GameManager : MonoBehaviour
             enemySpawner.onAllWavesComplete.AddListener(OnAllWavesCompleted);
         }
         else
+        if (enemySpawner == null)
         {
             Debug.Log("No EnemySpawner found. This Scene must be a Cutscene");
-            StartCoroutine(LoadNextSceneWithDelay(10f));
+            float delay = 10f;
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Cutscene 0":
+                case "Cutscene 1":
+                case "Cutscene 2":
+                    delay = 15f;
+                    break;
+                case "Cutscene 3":
+                    delay = 25f;
+                    break;
+            }
+            StartCoroutine(LoadNextSceneWithDelay(delay));
         }
 
         // Cek apakah ini Level 3
