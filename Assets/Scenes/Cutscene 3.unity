@@ -239,7 +239,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758562466}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 553525c0cede4ba4bab88da0abfa27f9, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 62f05faec2069104bb289b0bf0944f10, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -248,7 +248,7 @@ VideoPlayer:
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 2
-  m_AspectRatio: 2
+  m_AspectRatio: 1
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
@@ -623,7 +623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 0}
-  NextSceneName: Level 1
+  NextSceneName: MainMenu
   boss: {fileID: 0}
 --- !u!4 &1282734683
 Transform:

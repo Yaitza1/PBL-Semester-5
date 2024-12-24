@@ -8125,7 +8125,15 @@ PrefabInstance:
       objectReference: {fileID: 763807123}
     - target: {fileID: 5567654046637226009, guid: 37312c06c1ecc49418686bae28bc7dc8, type: 3}
       propertyPath: waves.Array.size
-      value: 1
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567654046637226009, guid: 37312c06c1ecc49418686bae28bc7dc8, type: 3}
+      propertyPath: waves.Array.data[1].numberOfEnemies
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567654046637226009, guid: 37312c06c1ecc49418686bae28bc7dc8, type: 3}
+      propertyPath: waves.Array.data[2].numberOfEnemies
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6394421117566356375, guid: 37312c06c1ecc49418686bae28bc7dc8, type: 3}
       propertyPath: m_LocalPosition.x
